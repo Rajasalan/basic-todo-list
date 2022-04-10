@@ -20,8 +20,14 @@ const AddTask = (props) => {
     };
 
     return (
-        <div>
-            <input type='text' placeholder='Add Task' value={task} onChange={event => setTask(event.target.value)} />
+        <div className="card card-body my-3">
+            <div className="input-group">
+                        <div className="input-group-prepend">
+                       
+                        </div>
+                <input type='text' placeholder='Add Task' value={task} onChange={event => setTask(event.target.value)} />
+                
+                </div>
             <button onClick={() => addTask()}>Add Task</button>
         </div>
     )

@@ -2,14 +2,17 @@ import React , {useState , useEffect} from 'react';
 import axios from 'axios';
 import TodoList from './TodoList';
 import AddTask from './AddTask';
+import UpdateTask from './UpdateTask';
 
 const Main = () => {
-    const [todolist, setTodolist] = useState([]);
+    const [todoList, setTodoList] = useState([]);
+    const [taskToUpdate , setTaskToUpdate] = useState({})
+    const [showPopup,setShowPopup] = useState(false)
 
     const loadTask = () => {
         axios.get('http://localhost:8000/api/todo').then(res => {
             console.log(res.data);
-            setTodolist(res.data);
+            setTodoList(res.data);
         }).catch(err => console.log(err));
     };
 
@@ -18,15 +21,30 @@ const Main = () => {
     }, []);
 
     const addTask = newTask => {
-        setTodolist([...todolist, newTask]);
+        setTodoList([...todoList, newTask]);
         loadTask();
     }
+
+    const updateTask = task => {
+        const newList = [...todoList]
+        newList.forEach(item => {
+          if(item.id === task.id){
+            item.text = task.text
+          }
+        })
+        setTodoList(newList);
+        loadTask();
+      }
+    
     
     return (
         <div className="row">
             <div className="col-10 col-md-8 mx-auto mt-4">
             <AddTask addTask={addTask}/>
-            <TodoList todolist={todolist} />
+                <TodoList todoList={todoList}
+                    taskToUpdate={task => setTaskToUpdate(task)} showPopup={() => setShowPopup(!showPopup)} />
+                 {showPopup && <UpdateTask task = {taskToUpdate} updateTask = {updateTask} 
+      removePopup = {() => setShowPopup(!showPopup)}/>}
             </div>
             </div>
     );
