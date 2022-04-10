@@ -1,1 +1,22 @@
-[{"id":1,"text":"task 1","status":"pending"},{"id":2,"text":"task 2","status":"pending"},{"id":"4","text":"task4","status":"pending"},{"id":"5","text":"task5","status":"pending"}]
+[
+    {
+        "id": 1,
+        "text": "task 1",
+        "status": "pending"
+    },
+    {
+        "id": 2,
+        "text": "task 2",
+        "status": "pending"
+    },
+    {
+        "id": "4",
+        "text": "task4",
+        "status": "pending"
+    },
+    {
+        "id": "5",
+        "text": "task5",
+        "status": "pending"
+    }
+]
