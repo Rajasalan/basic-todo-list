@@ -34,7 +34,23 @@ const Main = () => {
         })
         setTodoList(newList);
         loadTask();
-      }
+    }
+    
+    const removeTask = task => {
+        const newList = todoList.filter(item => !(item.id === task.id))
+        setTodoList(newList);
+        loadTask();
+    }
+    
+    const taskComplete = task => {
+        const newList = [...todoList]
+        newList.forEach(item => {
+          if(item.id === task.id){
+            item.status = 'done'
+          }
+        })
+        setTodoList(newList)
+      } 
     
     
     return (
@@ -42,10 +58,14 @@ const Main = () => {
             <div className="col-10 col-md-8 mx-auto mt-4">
             <AddTask addTask={addTask}/>
                 <TodoList todoList={todoList}
-                    taskToUpdate={task => setTaskToUpdate(task)} showPopup={() => setShowPopup(!showPopup)} />
+                    taskToUpdate={task => setTaskToUpdate(task)} showPopup={() => setShowPopup(!showPopup)}
+                    removeTask={removeTask}
+                    taskComplete = {taskComplete} />
+             
                  {showPopup && <UpdateTask task = {taskToUpdate} updateTask = {updateTask} 
       removePopup = {() => setShowPopup(!showPopup)}/>}
             </div>
+            
             </div>
     );
     }
