@@ -6,14 +6,15 @@ const fs = require('fs');
 router.get('/api/todo', (req,res)=>{
     let jsonData =  fs.readFileSync('db.json');
     res.status(200).json(JSON.parse(jsonData));
-    console.log(Data);
+    console.log(jsonData);
 });
 
 // Add new todo task
 router.post("/api/todo", (req, res) => {
     
     // Extract todo  from the request body
-    let todoData = req.body;
+  let todoData = req.body;
+  let id = req.body;
 
     // Reading existing todo list
     let jsonData =  fs.readFileSync('db.json');

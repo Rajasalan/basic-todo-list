@@ -5,10 +5,10 @@ const TodoList = (props) => {
 
     return (
     <div>
-            <ul>
+            <ul className="list-group my-5" >
                 {
                     props.todolist.map((task, index) => (
-                        <li key={index}>
+                        <li className="list-group-item d-flex justify-content-between my-2" key={index}>
                               <div style = {{display : 'flex'}}>
                                 <p>{task.text}</p>
                                 </div>
