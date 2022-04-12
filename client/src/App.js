@@ -5,8 +5,14 @@ import './App.css';
 function App() {
   return (
     <div className="container">
-      <Main />
-    </div>
+      <div className="row">
+      <div className="col-10 col-md-8 mx-auto mt-4">
+      <h3 className="text-capitalize text-center">TodoList</h3>
+          <Main />              
+        </div>
+      </div>
+      </div>
+    
   );
 }
 

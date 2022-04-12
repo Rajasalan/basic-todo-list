@@ -12,15 +12,19 @@ router.get('/api/todo', (req,res)=>{
 // Add new todo task
 router.post("/api/todo", (req, res) => {
     
-    // Extract todo  from the request body
+  // Extract todo  from the request body
   let todoData = req.body;
-  let id = req.body;
+
 
     // Reading existing todo list
     let jsonData =  fs.readFileSync('db.json');
-    const todoList = JSON.parse(jsonData);
-    todoData.id = todoList[todoList.length-1].id + 1;
+  const todoList = JSON.parse(jsonData);
 
+  if(todoData.length > 0 )
+    todoData.id = todoList[todoList.length - 1].id + 1
+  else
+    todoData.id = todoList.length + 1;
+  
     // Add new task to the list
     todoList.push(todoData);
 
@@ -68,22 +72,22 @@ router.put("/api/todo/:id", (req, res) => {
 
 
 // Update todo list status
- router.put("/api/todo/updateStatus/:id", (req, res) => { 
+router.put("/api/todo/updateStatus/:id", (req, res) => {
   
-    // Reading existing todo list from db
-    let jsonData =  fs.readFileSync('db.json');
-    const todoList = JSON.parse(jsonData);
-    const id = req.params.id;
+  // Reading existing todo list from db
+  let jsonData = fs.readFileSync('db.json');
+  const todoList = JSON.parse(jsonData);
+  const id = req.params.id;
 
-    // Find index of the particular task
-    var todoTask = todoList.find(task => task.id === parseInt(id));
+  // Find index of the particular task
+  var todoTask = todoList.find(task => task.id === parseInt(id));
   
-    // Update the status
-    todoTask.status =req.body.status;
-    // Write the updated task list to the json db
-    const stringifyData = JSON.stringify(todoList);
-    fs.writeFileSync('db.json', stringifyData);
-    res.status(201).json();
+  // Update the status
+  todoTask.status = req.body.status;
+  // Write the updated task list to the json db
+  const stringifyData = JSON.stringify(todoList);
+  fs.writeFileSync('db.json', stringifyData);
+  res.status(201).json();
 }); 
 
 

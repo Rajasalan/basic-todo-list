@@ -2,104 +2,77 @@ import React from 'react';
 import axios from 'axios';
 import './TodoList.css';
 
+/* Displaying Todo list 
+ Axios is used to send http request to backend*/
+
 const TodoList = (props) => {
 
+    // Deleting a item in todo list
     const removeTask = id => {
         axios.delete(`http://localhost:8000/api/todo/delete/${id}`).then(res => props.removeTask(res.data)).catch(err => console.log(err))
     }
-
+   
+    // Updating  status in todo list
     const taskComplete = task => {
-         axios.put(`http://localhost:8000/api/todo/updateStatus/${task.id}` , {
+        axios.put(`http://localhost:8000/api/todo/updateStatus/${task.id}`, {
              
-              status :'done'
+            status: 'done'
            
-         }).then((res) =>{
+        }).then((res) => {
          
-             props.taskComplete({id: task.id,
-             status:'done'});
-             console.log(res.data)
-         }).catch(err => console.log(err));
+            props.taskComplete({
+                id: task.id,
+                status: 'done'
+            });
+            console.log(res.data)
+        }).catch(err => console.log(err));
         
-     }
+    }
 
     return (
-    <div>
+        <div>
             <ul className="list-group my-5" >
                 {
                     props.todoList.map((task, index) => (
                         <li className="list-group-item d-flex justify-content-between my-2" key={index}>
-                              <div style = {{display : 'flex'}}>
-                              <p style={{ fontStyle : task.status  === 'done' ? 'italic': 'bold'}} onClick = {() => {
-                   taskComplete(task)
-               }}>{task.text}</p>
+                            <div className="todo-icon">
+                               
+                                <p style={{
+                                    textDecoration: task.status === 'done' ? 'line-through' : '',
+                                    color: task.status === 'done' ? '#DA3441' : ''
+                                }} onClick={() => {
+                                    taskComplete(task)
+                                }}>
+                                    {task.text}
+                                    
+                                </p>
+                                
                             </div>
                             <div>
-                <button onClick = {() => {
-                    props.taskToUpdate(task)
-                    props.showPopup()
-                                }} >Edit</button>
+                                <button className='check-done' onClick={() => {
+                                    taskComplete(task)
+                                }}>
+                                    <i className={`${task.status === 'done' ? "fa fa-check-square-o fa-2x" : "fa fa-square-o fa-2x"}`} />
+                                </button>
+                                <button className='edit' onClick={() => {
+                                    props.taskToUpdate(task)
+                                    props.showPopup()
+                                }} ><i className="fa fa-pencil fa-2x" aria-hidden="true"></i></button>
 
-<button  onClick = {() => {
-                    removeTask(task.id)
-                }}>Delete </button>
-                                </div>
-                            </li>
-                     ))
+                                <button className='delete' onClick={() => {
+                                    removeTask(task.id)
+                                }}><i
+                                    className="fa fa-trash fa-2x"
+                                    aria-hidden="true"
+                                ></i> </button>
+                            </div>
+                        </li>
+                    ))
 
                 }
             </ul>
-            
-            <h2>Done</h2>
-<ul>
-    {
-      props.todoList.filter(s=>s.status === 'done').map((task,index) => 
-          (
-
-            <li key = {index}>
-            <div style = {{display : 'flex'}}>
-             
-               <p>{task.text}</p>
-            </div>
-            <div>
-                <button onClick = {() => {
-                    props.tasktoUpdate(task)
-                    props.showPopup()
-                }}>Edit</button>
-                <button className = 'close' onClick = {() => {
-                    removeTask(task.id)
-                }}>delete</button>
-            </div>
-        </li> 
-          ))
-    }
-    </ul>      
-    <h2>Pending</h2>
-<ul>
-    {
-      props.todoList.filter(s=>s.status === 'pending').map((task,index) => 
-          (
-
-            <li key = {index}>
-            <div style = {{display : 'flex'}}>
-               
-               <p style={{ fontStyle : task.status  === 'done' ? 'italic': 'bold'}}>{task.text}</p>
-            </div>
-            <div>
-                <button onClick = {() => {
-                    props.taskToUpdate(task)
-                    props.showPopup()
-                                }} >Edit</button>
-
-<button  onClick = {() => {
-                    removeTask(task.id)
-                }}>Delete </button>
-                                </div>
-        </li> 
-          ))
-    }
-    </ul>    
         </div>
     )
-  }
+}
   
   export default TodoList
