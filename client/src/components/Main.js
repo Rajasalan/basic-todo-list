@@ -1,8 +1,8 @@
 import React , {useState , useEffect} from 'react';
 import axios from 'axios';
-import TodoList from './TodoList';
+import TodoList from './TodoList/TodoList';
 import AddTask from './AddTask';
-import UpdateTask from './UpdateTask';
+import UpdateTask from './UpdateTask/UpdateTask';
 
 
 const Main = () => {

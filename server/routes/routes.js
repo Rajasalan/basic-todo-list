@@ -6,7 +6,6 @@ const fs = require('fs');
 router.get('/api/todo', (req,res)=>{
     let jsonData =  fs.readFileSync('db.json');
     res.status(200).json(JSON.parse(jsonData));
-    console.log(jsonData);
 });
 
 // Add new todo task
