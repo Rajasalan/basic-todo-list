@@ -23,10 +23,10 @@ This project template can be utilized to develop further
 Refer to https://nodejs.org/en/ to install nodejs
 
 ### Install create-react-app
-Install create-react-app npm package globally. This will help to easily run the project and also build the source files easily. Use the following command to install create-react-app
+Install create-react-app npm package . This will help to easily run the project and also build the source files easily. Use the following command to install create-react-app
 
 ```bash
-npm install -g create-react-app
+npx create-react-app
 ```
 
 ## Cloning and Running the Application in local
@@ -52,7 +52,7 @@ npm start
 ```
 
 ### server
-Install the following for server
+Install the following for server configuration
 
 ```bash
 npm i express cors
@@ -73,7 +73,7 @@ or
 ```bash
 nodemon server.js
 ```
-The Application Runs on **localhost:3000**
+The Application Runs on **localhost:8000**
 
 
 ## Application design
